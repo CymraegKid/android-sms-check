@@ -21,10 +21,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        if(ContextCompat.checkSelfPermission(this, permission.RECEIVE_MMS) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(this, Array<String>(1){permission.RECEIVE_MMS},1)
-//        }
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             ActivityCompat.requestPermissions(this, arrayOf(permission.POST_NOTIFICATIONS),0)
 

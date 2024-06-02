@@ -52,7 +52,7 @@ class MyBroadcastReceiver: BroadcastReceiver() {
             try {
                 val url = URL(messageUrlString)
                 val connection = url.openConnection()
-                val inputStream = BufferedInputStream(connection.getInputStream())
+                BufferedInputStream(connection.getInputStream())
             } catch (ex: Exception){
                 Log.d("qwer", ex.toString())
             }

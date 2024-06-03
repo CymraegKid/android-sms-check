@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 
@@ -18,20 +17,19 @@ class MyService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d("qwer", "onStartCommand")
         start()
         return super.onStartCommand(intent, flags, startId)
     }
 
     private fun start(){
 
-        val br = MyBroadcastReceiver()
+        val broadcastReceiver = MyBroadcastReceiver()
         val filter = IntentFilter("android.provider.Telephony.SMS_RECEIVED")
         val receiverFlags = ContextCompat.RECEIVER_EXPORTED
 
         ContextCompat.registerReceiver(
             this,
-            br,
+            broadcastReceiver,
             filter,
             receiverFlags
         )
@@ -47,9 +45,11 @@ class MyService: Service() {
         }
 
         val notification = NotificationCompat.Builder(this,"1")
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("The test app is running")
+            .setSmallIcon(R.drawable.sms_app_icon)
+            .setContentTitle("Your messages are caught by this app now")
             .build()
+
         startForeground(1, notification)
+
     }
 }

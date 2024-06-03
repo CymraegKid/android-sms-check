@@ -1,21 +1,17 @@
 package app.test
 
-import android.content.IntentFilter
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Text
-import androidx.core.content.ContextCompat
 import android.Manifest.permission
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
-import androidx.core.content.PackageManagerCompat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +23,19 @@ class MainActivity : ComponentActivity() {
         ActivityCompat.requestPermissions(this, arrayOf(permission.READ_SMS, permission.RECEIVE_SMS),1)
 
         val intent = Intent(this, MyService::class.java)
-        startService(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
 
         setContent {
-            Text("The app is now running")
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("The app is now running")
+            }
         }
     }
 }

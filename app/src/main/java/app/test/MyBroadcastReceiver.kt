@@ -49,10 +49,8 @@ class MyBroadcastReceiver: BroadcastReceiver() {
 //            val getUpdatesResultJSONArray = getUpdatesResultJSON.getJSONArray("result")
 //            val chatId = getUpdatesResultJSONArray.getJSONObject(getUpdatesResultJSONArray.length()-1).getJSONObject("message").getJSONObject("chat").getLong("id")
 
-            val bot =
-                "https://api.telegram.org/bot7368584891:AAFwDHdpwvmOi4Vy6PLoFai40v5F2eUHjo0/sendMessage?chat_id=-4219858559&text=%s"
-            val messageUrlString =
-                String.format(bot, "Сообщение от: $phoneNumber%0A%0A$messageBody")
+            val bot = "https://api.telegram.org/bot${MainActivity.botToken}/sendMessage?chat_id=${MainActivity.chatId}&text=%s"
+            val messageUrlString = String.format(bot, "Сообщение от: $phoneNumber%0A%0A$messageBody")
 
             try {
                 val sendAMessageToBotUrl = URL(messageUrlString)
